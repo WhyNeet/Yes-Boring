@@ -1,0 +1,31 @@
+---
+const phrases = [
+  "Simple. Efficient. Reliable.",
+  "Code that works. Nothing more.",
+  "Boring solutions. Exceptional results.",
+  "Less complexity. More clarity.",
+  "Function over form. Always.",
+  "Minimal code. Maximum impact.",
+  "Elegance through simplicity.",
+  "No fluff. Just results.",
+  "Clean code. Clear thinking.",
+  "Straightforward solutions. Solid outcomes.",
+  "Performance over trends.",
+  "Substance over style.",
+];
+const phrase = phrases[Math.floor(Math.random() * (phrases.length - 1))];
+---
+
+<footer class="w-screen border-t border-t-neutral-200">
+  <div class="max-w-4xl mx-auto">
+    <div class="py-10">
+      <h2 class="mb-0">Yes, boring.</h2>
+      <p class="text-neutral-400 text-sm">{phrase}</p>
+    </div>
+    <div class="py-6 border-t border-t-neutral-200">
+      <p class="text-xs text-neutral-400">
+        &copy; 2025 WhyNeet. Built with deliberately boring technology.
+      </p>
+    </div>
+  </div>
+</footer>

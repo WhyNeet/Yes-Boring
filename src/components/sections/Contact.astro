@@ -1,0 +1,82 @@
+---
+import Discord from "../../assets/discord-logo.svg";
+import GitHub from "../../assets/github-logo.svg";
+import AtSign from "lucide-astro/AtSign";
+import ArrowUpRight from "lucide-astro/ArrowUpRight";
+---
+
+<section
+  class="py-20 w-screen flex items-center justify-center flex-col p-10 border-t border-t-neutral-200"
+>
+  <div class="max-w-4xl">
+    <h2 class="font-bold text-xl mb-4">Let's Work Together</h2>
+    <p class="text-neutral-400 text-balance mb-6">
+      Have a boring project that needs a boring solution? Let's talk about
+      building something reliable together.
+    </p>
+    <div class="grid grid-cols-3 w-full contacts mb-6">
+      <a class="group" href="https://github.com/WhyNeet" target="_blank">
+        <div>
+          <GitHub class="h-6 w-6" />
+          <span>
+            GitHub
+            <ArrowUpRight class="h-4 w-4" />
+          </span>
+        </div>
+        <p>@WhyNeet</p>
+      </a>
+      <a class="group" href="https://discordapp.com/users/565535100444475443" target="_blank">
+        <div>
+          <Discord class="h-6 w-6" />
+          <span>
+            Discord
+            <ArrowUpRight class="h-4 w-4" />
+          </span>
+        </div>
+        <p>@whyneet</p>
+      </a>
+      <a class="group" href="mailto:igorius.vl@gmail.com">
+        <div>
+          <AtSign class="h-6 w-6" />
+          <span>
+            Email
+            <ArrowUpRight class="h-4 w-4" />
+          </span>
+        </div>
+        <p>Please Don't</p>
+      </a>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+      <p class="text-sm text-neutral-400">Available for new projects.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  @reference "tailwindcss";
+
+  .contacts > .group {
+    @apply border border-neutral-200 p-4 border-r-0  cursor-pointer flex items-center justify-between;
+
+    & > p {
+      @apply text-neutral-400 text-sm;
+    }
+
+    & > div {
+      @apply flex gap-4 items-center;
+    }
+  }
+
+  .contacts > .group > div > span {
+    @apply flex gap-1 items-center;
+
+    & > .lucide {
+      @apply hidden group-hover:block text-neutral-400;
+    }
+  }
+
+  .contacts > .group:last-child {
+    @apply border-r;
+  }
+</style>

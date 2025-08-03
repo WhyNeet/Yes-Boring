@@ -1,0 +1,89 @@
+---
+interface Props {
+  start: number;
+  span: number;
+  classList?: string;
+}
+
+const { start, span, classList = "" } = Astro.props;
+---
+
+<text-appear-props data-start={start} data-span={span}>
+  <p class={`${classList} text-appear-paragraph`}>
+    <slot />
+    <span class="inactive active"></span>
+  </p>
+</text-appear-props>
+
+<style is:global>
+@reference "tailwindcss";
+
+.text-appear-paragraph > span.inactive {
+  @apply opacity-40 text-black!;
+}
+
+.text-appear-paragraph > span.active {
+  @apply text-black!;
+}
+</style>
+
+<script>
+class Props extends HTMLElement {
+  connectedCallback() {
+    const start = +this.dataset["start"]!;
+    const span = +this.dataset["span"]!;
+    const element = this.children[0] as HTMLElement;
+
+    run(start, span, element);
+  }
+}
+
+function run(start: number, span: number, element: HTMLElement) {
+  const activeColors = ["#2b7fff", "#ad46ff", "#fd9a00", "#00c951"];
+
+  const pickActiveColor = () => {
+    return activeColors[Math.round(Math.random() * activeColors.length)];
+  };
+
+  let prevIndex = 0;
+
+  window.addEventListener("scroll", () => {
+    // progress = (current scroll - start height) / scroll area
+    const progressRaw =
+      (window.scrollY - window.innerHeight * start) / window.innerHeight * span;
+    if (progressRaw <= 0) {
+      for (const element of elements) {
+        element.className = "inactive";
+      }
+      return;
+    }
+    const progress = Math.min(Math.max(progressRaw, 0), 1);
+    const index = Math.floor(progress * (elements.length - 1));
+
+    for (let i = 0; i < index; i++) {
+      elements[i].className = "active";
+    }
+    elements[index].className = "";
+    if (index !== prevIndex) elements[index].style.color = pickActiveColor();
+    for (let i = index + 1; i < elements.length; i++) {
+      elements[i].className = "inactive";
+    }
+
+    prevIndex = index;
+  });
+
+  const words = element.innerText.split(" ");
+  const elements = words.map((word) => {
+    const node = document.createElement("span");
+    node.className = "inactive";
+    node.innerText = word + " ";
+    return node;
+  });
+  element.innerHTML = "";
+  for (const node of elements) {
+    element.appendChild(node);
+  }
+}
+
+customElements.define('text-appear-props', Props);
+</script>

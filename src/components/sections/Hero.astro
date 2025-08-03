@@ -1,0 +1,49 @@
+---
+import CircleArrowDown from "lucide-astro/CircleArrowDown";
+---
+
+<section class="h-screen w-screen flex items-center justify-end flex-col p-10">
+  <canvas class="absolute inset-0 h-screen w-screen -z-10" id="intro-canvas"></canvas>
+  <h1 class="text-9xl font-bold uppercase mb-10 bg-gradient-to-t from-black to-neutral-600 bg-clip-text text-transparent">Yes, boring</h1>
+  <p class="text-neutral-400 animate-pulse flex items-center gap-2">
+    <CircleArrowDown class="h-6 w-6 stroke-[1.5]" />
+    Keep scrolling, I won't judge.
+  </p>
+</section>
+
+<script>
+const scale = 2;
+const canvas = document.getElementById("intro-canvas")! as HTMLCanvasElement;
+const cx = canvas.getContext("2d")!;
+
+window.addEventListener("resize", resize);
+
+function resize() {
+  const { height, width }  = canvas.getBoundingClientRect();
+  canvas.height = height * scale;
+  canvas.width = width * scale;
+}
+
+let time = 0;
+
+resize();
+
+const update = () => {
+  cx.clearRect(0, 0, canvas.height * scale, canvas.width * scale);
+
+  cx.fillStyle = "black";
+
+  for (let x = 1; x < canvas.width / scale / 40; x++) {
+    const y = (Math.sin(x + time) * 40) + canvas.height / scale / 2;
+    cx.beginPath();
+    cx.arc(x * scale * 40, y * scale, 13 * scale, 0, Math.PI * 2);
+    cx.fill();
+  }
+
+  time += 0.05;
+
+  requestAnimationFrame(update);
+}
+
+update();
+</script>
