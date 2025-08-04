@@ -50,7 +50,7 @@ function run(start: number, span: number, element: HTMLElement) {
   window.addEventListener("scroll", () => {
     // progress = (current scroll - start height) / scroll area
     const progressRaw =
-      (window.scrollY - window.innerHeight * start) / window.innerHeight * span;
+      (window.scrollY - window.innerHeight * start) / (window.innerHeight * span);
     if (progressRaw <= 0) {
       for (const element of elements) {
         element.className = "inactive";
