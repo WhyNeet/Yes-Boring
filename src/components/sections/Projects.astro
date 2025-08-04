@@ -1,0 +1,78 @@
+---
+const projects = [
+  {
+    link: "https://github.com/WhyNeet/t3-chat-clone",
+    name: "WhyChat",
+    description: "A chat application for the T3 Chat Cloneathon. Features multiple models, resumable streams, chat sharing, and more.",
+    role: "Author",
+    kind: "AI Chat",
+    lang: ["TypeScript", "Rust"]
+  },
+  {
+    link: "https://github.com/WhyNeet/Whisper",
+    name: "Whisper",
+    description: "A functional programming language inspired by Rust. Compiles to JavaScript.",
+    role: "Author",
+    kind: "Compiler",
+    lang: ["Rust"]
+  },
+  {
+    link: "https://github.com/WhyNeet/compositor",
+    name: "Compositor",
+    description: "An application framework written in TypeScript. Includes an IoC container, Express bindings, router and more.",
+    role: "Author",
+    kind: "Framework",
+    lang: ["TypeScript"]
+  },
+  {
+    link: "https://github.com/hwgilbert16/scholarsome",
+    name: "Scholarsome",
+    description: "Scholarsome is a web-based and open-source flashcard learning system.",
+    role: "Contributor",
+    kind: "Flashcards App",
+    lang: ["TypeScript"]
+  },
+  {
+    link: "https://github.com/WhyNeet/vanilladb",
+    name: "VanillaDB",
+    description: "A simple database written in Rust. Includes its own database engine and data serialization format.",
+    role: "Author",
+    kind: "Database",
+    lang: ["Rust"]
+  },
+  {
+    link: "https://github.com/WhyNeet/cells-engine",
+    name: "Cells Engine",
+    description: "A library for web spreadsheets. Implements a data manipulation layer alongside a performant renderer.",
+    role: "Author",
+    kind: "Library",
+    lang: ["TypeScript"]
+  },
+];
+---
+<section class="w-screen flex items-center">
+  <div class="py-20 max-w-4xl mx-auto w-full">
+    <h1 class="text-xl font-extrabold mb-4">Projects & Solutions</h1>
+    <p class="text-neutral-400 mb-6 text-balance">A curated collection of functional projects that solve real problems without unnecessary complexity or visual noise.</p>
+    <div class="grid grid-cols-2 border-t border-l border-neutral-200">
+      { projects.map(project => <a
+        class="h-full w-full border-b border-r border-neutral-200 p-6 hover:bg-neutral-50 cursor-pointer"
+        href={project.link}
+        target="_blank"
+      >
+        <div class="flex items-baseline gap-2">
+          <h3 class="font-bold text-lg">{ project.name }</h3>
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-neutral-400">{ project.kind }</span>
+            <div class="h-1 w-1 rounded-full bg-neutral-400" />
+            <p class="text-sm text-neutral-400">{ project.lang.join(" & ") }</p>
+          </div>
+        </div>
+        <p class="text-xs text-neutral-400 mb-2">{ project.role }</p>
+          <p class="text-sm">
+            { project.description }
+          </p>
+      </a>) }
+    </div>
+  </div>
+</section>
