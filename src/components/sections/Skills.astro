@@ -1,7 +1,7 @@
-<section id="skills-section">
+<section class="relative overflow-hidden" id="skills-section">
   <div class="max-w-4xl mx-auto pb-20">
     <h2
-      class="text-9xl font-extrabold text-black/10 bg-clip-text mb-10 max-w-fit"
+      class="text-9xl font-extrabold text-transparent bg-clip-text mb-10 max-w-fit"
     >
       Skills
     </h2>
@@ -286,6 +286,7 @@
       </div>
     </div>
   </div>
+  <div class="absolute gradient -inset-x-20 -bottom-4 h-8 blur-3xl" />
 </section>
 
 <style>
@@ -300,11 +301,22 @@
       linear-gradient(to top, transparent, white),
       linear-gradient(to right, var(--color-neutral-100) 1px, transparent 1px),
       linear-gradient(to bottom, var(--color-neutral-100) 1px, transparent 1px);
+      animation: grid-move linear infinite 1000ms;
+  }
+
+  @keyframes grid-move {
+    0% {
+      background-position: 0, 0, 0px 0px;
+    }
+
+    100% {
+      background-position: 0px, 0 0, 0 -40px;
+    }
   }
 
   h2 {
-    background-image: linear-gradient(to top, black, black);
-    background-position: calc(-461px + 461px * var(--progress, 0)) top;
+    background-image: linear-gradient(to top, black, black), linear-gradient(to bottom right, oklch(85.2% 0.199 91.936 / .2), oklch(63.7% 0.237 25.331 / .2), oklch(68.5% 0.169 237.323 / .2), oklch(76.5% 0.177 163.223 / .2));
+    background-position: calc(-461px + 461px * var(--progress, 0)) top, 0;
     background-repeat: no-repeat;
     @apply transition-all duration-150 ease-linear;
   }

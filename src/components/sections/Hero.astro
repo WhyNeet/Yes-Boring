@@ -2,48 +2,90 @@
 import CircleArrowDown from "lucide-astro/CircleArrowDown";
 ---
 
-<section class="h-screen w-screen flex items-center justify-end flex-col p-10">
-  <canvas class="absolute inset-0 h-screen w-screen -z-10" id="intro-canvas"></canvas>
-  <h1 class="text-9xl font-bold uppercase mb-10 bg-gradient-to-t from-black to-neutral-600 bg-clip-text text-transparent">Yes, boring</h1>
-  <p class="text-neutral-400 animate-pulse flex items-center gap-2">
+<section
+  class="h-screen w-screen flex items-center justify-end flex-col p-10 relative overflow-hidden"
+>
+  <canvas class="absolute inset-0 h-screen w-screen -z-10" id="intro-canvas"
+  ></canvas>
+  <h1
+    class="text-9xl font-bold uppercase mb-10 bg-gradient-to-t from-black to-neutral-600 bg-clip-text text-transparent"
+  >
+    Yes, boring
+  </h1>
+  <p class="text-neutral-400 animate-pulse flex items-center gap-3">
     <CircleArrowDown class="h-6 w-6 stroke-[1.5]" />
     Keep scrolling, I won't judge.
   </p>
+  <div class="scene absolute inset-y-0 -inset-x-full -z-20 perspective-midrange">
+    <div class="floor-grid absolute inset-0 bottom-0"></div>
+  </div>
+  <div class="absolute gradient -inset-x-20 -bottom-4 h-8 blur-3xl -z-10"></div>
 </section>
 
+<style is:global>
+  .gradient {
+    background-image: linear-gradient(
+      to right,
+      oklch(85.2% 0.199 91.936),
+      oklch(63.7% 0.237 25.331),
+      oklch(68.5% 0.169 237.323),
+      oklch(76.5% 0.177 163.223)
+    );
+  }
+</style>
+
+<style>
+  .floor-grid {
+    background-size:
+      40px 40px,
+      40px 40px;
+    background-image:
+      linear-gradient(to right, var(--color-neutral-200) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--color-neutral-200) 1px, transparent 1px);
+      animation: grid-move linear infinite 10000ms;
+      transform: rotateX(90deg);
+      transform-origin: bottom center;
+      mask-image: linear-gradient(
+          to top,
+          black 0%,
+          transparent 100%
+        );
+  }
+</style>
+
 <script>
-const scale = 2;
-const canvas = document.getElementById("intro-canvas")! as HTMLCanvasElement;
-const cx = canvas.getContext("2d")!;
+  const scale = 2;
+  const canvas = document.getElementById("intro-canvas")! as HTMLCanvasElement;
+  const cx = canvas.getContext("2d")!;
 
-window.addEventListener("resize", resize);
+  window.addEventListener("resize", resize);
 
-function resize() {
-  const { height, width }  = canvas.getBoundingClientRect();
-  canvas.height = height * scale;
-  canvas.width = width * scale;
-}
-
-let time = 0;
-
-resize();
-
-const update = () => {
-  cx.clearRect(0, 0, canvas.height * scale, canvas.width * scale);
-
-  cx.fillStyle = "black";
-
-  for (let x = 1; x < canvas.width / scale / 40; x++) {
-    const y = (Math.sin(x + time) * 40) + canvas.height / scale / 2;
-    cx.beginPath();
-    cx.arc(x * scale * 40, y * scale, 13 * scale, 0, Math.PI * 2);
-    cx.fill();
+  function resize() {
+    const { height, width } = canvas.getBoundingClientRect();
+    canvas.height = height * scale;
+    canvas.width = width * scale;
   }
 
-  time += 0.05;
+  let time = 0;
 
-  requestAnimationFrame(update);
-}
+  resize();
 
-update();
+  const update = () => {
+    cx.clearRect(0, 0, canvas.height * scale, canvas.width * scale);
+
+    cx.fillStyle = "black";
+
+    for (let x = 1; x < canvas.width / scale / 40; x++) {
+      const y = Math.sin(x + time) * 40 + canvas.height / scale / 2;
+      cx.beginPath();
+      cx.arc(x * scale * 40, y * scale, 13 * scale, 0, Math.PI * 2);
+      cx.fill();
+    }
+
+    time += 0.05;
+
+    requestAnimationFrame(update);
+  };
+
+  update();
 </script>
