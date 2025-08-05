@@ -34,17 +34,22 @@ const { classList = "" } = Astro.props;
     const span = height - elementHeight;
     const start = top + window.scrollY;
 
+    let isClear = false;
+
     window.addEventListener("scroll", () => {
       // progress = (current scroll - start height) / scroll area
       const progressRaw =
         (window.scrollY - start) / span;
       if (progressRaw <= 0) {
+        if (isClear) return;
         for (const element of elements) {
           element.style.opacity = "0.4";
           element.style.color = "";
         }
+        isClear = true;
         return;
       }
+      isClear = false;
       const progress = Math.min(Math.max(progressRaw, 0), 1);
       const index = Math.floor(progress * (elements.length - 1));
 

@@ -72,15 +72,26 @@ import CircleArrowDown from "lucide-astro/CircleArrowDown";
 
   resize();
 
+  let refreshCanvas = false;
+
+
   const update = () => {
-    cx.clearRect(0, 0, canvas.height * scale, canvas.width * scale);
+    if (!refreshCanvas) return;
+
+    cx.clearRect(0, 0, canvas.width * scale, canvas.height * scale);
 
     cx.fillStyle = "black";
 
-    for (let x = 1; x < canvas.width / scale / 40; x++) {
+    for (let x = 0; x < canvas.width / scale / 40; x++) {
       const y = Math.sin(x + time) * 40 + canvas.height / scale / 2;
       cx.beginPath();
-      cx.arc(x * scale * 40, y * scale, 13 * scale, 0, Math.PI * 2);
+      cx.arc(
+        x * scale * 40 + 20 * scale,
+        y * scale,
+        13 * scale,
+        0,
+        Math.PI * 2,
+      );
       cx.fill();
     }
 
@@ -89,5 +100,14 @@ import CircleArrowDown from "lucide-astro/CircleArrowDown";
     requestAnimationFrame(update);
   };
 
-  update();
+  const handleScroll = () => {
+    if (window.scrollY > window.innerHeight) {
+      refreshCanvas = false;
+    } else if (!refreshCanvas) {
+      refreshCanvas = true;
+      update();
+    }
+  };
+  handleScroll();
+  window.addEventListener("scroll", handleScroll);
 </script>

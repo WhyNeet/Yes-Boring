@@ -149,15 +149,16 @@ const skills = [
   }
 ];
 ---
-<section class="relative overflow-hidden" id="skills-section">
+<section class="relative overflow-hidden">
   <div class="max-w-4xl mx-auto pb-20">
     <h2
       class="text-9xl font-extrabold text-transparent bg-clip-text mb-10 max-w-fit"
+      id="skills-title"
     >
       Skills
     </h2>
     { skills.map(({group, items}) => <Appear offset={0.95}>
-      <div class="mb-20 opacity-[var(--appear)] translate-y-[calc((1-var(--appear))*20px)] transition-all duration-300 ease-[cubic-bezier(0.5,1,0.89,1)] scale-intro">
+      <div class="mb-20 opacity-[var(--appear)] transition-all duration-300 ease-[cubic-bezier(0.5,1,0.89,1)] scale-intro">
         <div class="flex items-center gap-4 mb-6">
           <h3 class="min-w-fit">{ group }</h3>
           <hr class="w-full text-neutral-400" />
@@ -211,6 +212,7 @@ const skills = [
     background-image: linear-gradient(to top, black, black), linear-gradient(to bottom right, oklch(85.2% 0.199 91.936 / .2), oklch(63.7% 0.237 25.331 / .2), oklch(68.5% 0.169 237.323 / .2), oklch(76.5% 0.177 163.223 / .2));
     background-position: calc(-461px + 461px * var(--progress, 0)) top, 0;
     background-repeat: no-repeat;
+    will-change: background-position;
     @apply transition-all duration-150 ease-[cubic-bezier(0.5,1,0.89,1)];
   }
 
@@ -235,23 +237,25 @@ const skills = [
       @apply h-[1px] bg-neutral-300;
 
       & > div {
+        will-change: width;
         @apply bg-black h-full relative after:h-2 after:w-2 after:bg-black after:rounded-full after:absolute after:right-0 after:-top-1 transition-all duration-300 ease-[cubic-bezier(0.5,1,0.89,1)];
       }
     }
   }
 
   .scale-intro {
-    scale: calc(0.95 + var(--appear) * 0.05);
+    transform: scale(calc(0.95 + var(--appear) * 0.05)) translateY(calc((1 - var(--appear) ) * 20px));
+    will-change: transform, opacity;
   }
 </style>
 
 <script>
-  const section = document.getElementById("skills-section")!;
+  const title = document.getElementById("skills-title")!;
 
   window.addEventListener("scroll", () => {
     const progressRaw =
       (window.scrollY - window.innerHeight * 2) / (window.innerHeight * 0.9);
     const progress = Math.min(Math.max(progressRaw, 0), 1);
-    section.style.setProperty("--progress", progress.toString());
+    title.style.setProperty("--progress", progress.toString());
   });
 </script>
