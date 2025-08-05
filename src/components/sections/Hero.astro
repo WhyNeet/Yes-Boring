@@ -12,11 +12,17 @@ import CircleArrowDown from "lucide-astro/CircleArrowDown";
   >
     Yes, boring
   </h1>
-  <p class="text-neutral-400 animate-pulse flex items-center gap-3">
-    <CircleArrowDown class="h-6 w-6 stroke-[1.5]" />
-    Keep scrolling, I won't judge.
-  </p>
-  <div class="scene absolute inset-y-0 -inset-x-full -z-20 perspective-midrange">
+  <div
+    class="bg-white/20 backdrop-blur-xs rounded-full px-2 py-2 border border-neutral-200"
+  >
+    <div class="animate-pulse flex items-center gap-2 text-neutral-400 text-sm">
+      <CircleArrowDown class="h-6 w-6 stroke-[1.5]" />
+      Keep scrolling, I won't judge.
+    </div>
+  </div>
+  <div
+    class="scene absolute inset-y-0 -inset-x-full -z-20 perspective-midrange"
+  >
     <div class="floor-grid absolute inset-0 bottom-0"></div>
   </div>
   <div class="absolute gradient -inset-x-20 -bottom-4 h-8 blur-3xl -z-10"></div>
@@ -42,14 +48,10 @@ import CircleArrowDown from "lucide-astro/CircleArrowDown";
     background-image:
       linear-gradient(to right, var(--color-neutral-200) 1px, transparent 1px),
       linear-gradient(to bottom, var(--color-neutral-200) 1px, transparent 1px);
-      animation: grid-move linear infinite 10000ms;
-      transform: rotateX(90deg);
-      transform-origin: bottom center;
-      mask-image: linear-gradient(
-          to top,
-          black 0%,
-          transparent 100%
-        );
+    animation: grid-move linear infinite 10000ms;
+    transform: rotateX(90deg);
+    transform-origin: bottom center;
+    mask-image: linear-gradient(to top, black 0%, transparent 100%);
   }
 </style>
 
