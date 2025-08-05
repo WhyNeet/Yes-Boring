@@ -1,0 +1,35 @@
+---
+interface Props {
+	offset?: number
+}
+
+const { offset = 1 } = Astro.props;
+---
+<element-appear data-offset={offset}>
+  <slot />
+</element-appear>
+
+<script>
+class Appear extends HTMLElement {
+  connectedCallback() {
+    const element = this.children[0] as HTMLElement;
+    const offset = +this.dataset["offset"]!;
+
+    run(element, offset);
+  }
+}
+
+function run(element: HTMLElement, offset: number) {
+  const { height, top } = element.getBoundingClientRect();
+  const start = top + window.scrollY - window.innerHeight * offset;
+  const span = height;
+
+  window.addEventListener("scroll", () => {
+    const progressRaw =  (window.scrollY - start) / span;
+    const progress = Math.min(Math.max(progressRaw, 0), 1)
+    element.style.setProperty("--appear", progress.toString());
+  });
+}
+
+customElements.define("element-appear", Appear);
+</script>
