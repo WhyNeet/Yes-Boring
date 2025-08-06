@@ -14,7 +14,7 @@ import ArrowUpRight from "lucide-astro/ArrowUpRight";
       Have a boring project that needs a boring solution? Let's talk about
       building something reliable together.
     </p>
-    <div class="grid grid-cols-3 w-full contacts mb-6">
+    <div class="grid md:grid-cols-3 w-full contacts mb-6 border border-neutral-200 border-b-0 md:border-r-0">
       <a class="group" href="https://github.com/WhyNeet" target="_blank">
         <div>
           <GitHub class="h-6 w-6" />
@@ -61,7 +61,7 @@ import ArrowUpRight from "lucide-astro/ArrowUpRight";
   @reference "tailwindcss";
 
   .contacts > .group {
-    @apply border border-neutral-200 p-4 border-r-0  cursor-pointer flex items-center justify-between;
+    @apply border-neutral-200 border-b md:border-r p-4 cursor-pointer flex items-center justify-between;
 
     & > p {
       @apply text-neutral-400 text-sm;
@@ -78,9 +78,5 @@ import ArrowUpRight from "lucide-astro/ArrowUpRight";
     & > .lucide {
       @apply hidden group-hover:block text-neutral-400;
     }
-  }
-
-  .contacts > .group:last-child {
-    @apply border-r;
   }
 </style>

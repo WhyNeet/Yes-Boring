@@ -149,10 +149,10 @@ const skills = [
   }
 ];
 ---
-<section class="relative overflow-hidden">
+<section class="relative overflow-hidden px-10">
   <div class="max-w-4xl mx-auto pb-20">
     <h2
-      class="text-9xl font-extrabold text-transparent bg-clip-text mb-10 max-w-fit"
+      class="text-7xl min-[420px]:text-8xl md:text-9xl font-extrabold text-transparent bg-clip-text mb-10 max-w-fit"
       id="skills-title"
     >
       Skills
@@ -163,7 +163,7 @@ const skills = [
           <h3 class="min-w-fit">{ group }</h3>
           <hr class="w-full text-neutral-400" />
         </div>
-        <div class="grid grid-cols-2 grid-rows-2 gap-8 skills-grid">
+        <div class="grid sm:grid-cols-2 grid-rows-2 gap-8 skills-grid">
           { items.map(item => <div>
             <div class="area">
               <h4>
